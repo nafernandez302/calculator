@@ -1,0 +1,35 @@
+
+#calc{
+    height: 600px;
+    width: 600px;
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(26, 26, 87);
+    margin-left:25%
+}
+.button-container{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.display{
+    background-color: gray;
+    height: 20%;
+    font-size: 40px;
+}
+
+.clear{
+    background-color: salmon;
+}
+.number, .operator, .point, .equal{
+    width: 23%;
+    height: 100%;
+    margin: 1px;
+}
+
+.operator{
+    width: 23%;
+    height: 23%
+    margin: 1px;
+}
