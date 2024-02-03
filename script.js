@@ -20,6 +20,28 @@ function divide(a,b){
 function operate(fst, op, snd){
     return op(fst,snd);
 }
+
+function obtainOperator(stringOp){
+    let functionOp;
+    switch (stringOp) {
+        case "+":
+            functionOp = add;
+            break;
+        case "*":
+            functionOp = multiply;
+            break;
+        case "/":
+            functionOp = divide;
+            break;
+        case "-":
+            functionOp = sustract;
+            break;
+        default:
+            break;
+    }
+
+    return functionOp;
+}
 function cleanDisplay() {
     const output = document.querySelector(".display");
     output.innerHTML = "0";
@@ -69,12 +91,19 @@ clearContainer.addEventListener("click", function(){
 })
 
 equalContainer.addEventListener("click", function(){
-    display.innerHTML = add(parseInt(fstArg, 10), parseInt(sndArg, 10));
+    let functionOp = obtainOperator(actualOperator);
+    let result = operate(parseInt(fstArg,10), 
+                         functionOp,
+                         parseInt(sndArg,10))
+    if(result != null){
+        display.innerHTML = result;
+    }
+    else{
+        display.innerHTML = "ERROR";
+    }
     fstArg = "";
     sndArg = "";
     isOperatorPressed = false;
 })
-
-
 
 
