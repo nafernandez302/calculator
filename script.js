@@ -26,3 +26,27 @@ function cleanDisplay() {
 }
 
 const display = document.querySelector(".display");
+
+let fstArg = "";
+let sndArg = "";
+let operatorPressed = false;
+
+const operatorsContainer = document.querySelectorAll(".operator");
+const numbersContainer = document.querySelectorAll(".number")
+
+operatorsContainer.forEach(operator => {
+    operator.addEventListener("click", function(){
+        operatorPressed = true;
+    })
+})
+
+numbersContainer.forEach(number =>{
+    number.addEventListener("click", function(counter){
+        const clickedNumber = this.textContent;
+        fstArg = fstArg + clickedNumber
+        display.innerHTML = fstArg;
+        counter++;
+        console.log(fstArg);
+    })
+})
+
