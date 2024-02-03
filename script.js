@@ -29,24 +29,49 @@ const display = document.querySelector(".display");
 
 let fstArg = "";
 let sndArg = "";
-let operatorPressed = false;
+let isOperatorPressed = false;
+let actualOperator;
 
 const operatorsContainer = document.querySelectorAll(".operator");
 const numbersContainer = document.querySelectorAll(".number")
+const clearContainer = document.querySelector(".clear");
+const equalContainer = document.querySelector(".equal");
 
 operatorsContainer.forEach(operator => {
     operator.addEventListener("click", function(){
-        operatorPressed = true;
+        isOperatorPressed = true;
+        actualOperator = this.textContent;
     })
 })
 
 numbersContainer.forEach(number =>{
     number.addEventListener("click", function(counter){
         const clickedNumber = this.textContent;
-        fstArg = fstArg + clickedNumber
-        display.innerHTML = fstArg;
-        counter++;
-        console.log(fstArg);
+        if(isOperatorPressed){
+            sndArg = sndArg + clickedNumber;
+            display.innerHTML = sndArg;
+            console.log(sndArg);
+        }
+        else {
+            fstArg = fstArg + clickedNumber
+            display.innerHTML = fstArg;
+            console.log(fstArg);
+        }
+        
     })
 })
+
+clearContainer.addEventListener("click", function(){
+    cleanDisplay();
+    fstArg = "";
+    sndArg = "";
+    isOperatorPressed = false;
+})
+
+equalContainer.addEventListener("click", function(){
+    display.innerHTML = add(parseInt(fstArg, 10), parseInt(sndArg, 10));
+})
+
+
+
 
