@@ -20,3 +20,9 @@ function divide(a,b){
 function operate(fst, op, snd){
     return op(fst,snd);
 }
+function cleanDisplay() {
+    const output = document.querySelector(".display");
+    output.innerHTML = "0";
+}
+
+const display = document.querySelector(".display");
