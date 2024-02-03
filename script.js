@@ -70,6 +70,9 @@ clearContainer.addEventListener("click", function(){
 
 equalContainer.addEventListener("click", function(){
     display.innerHTML = add(parseInt(fstArg, 10), parseInt(sndArg, 10));
+    fstArg = "";
+    sndArg = "";
+    isOperatorPressed = false;
 })
 
 
