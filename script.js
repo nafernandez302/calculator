@@ -45,13 +45,22 @@ function obtainOperator(stringOp){
 function cleanDisplay() {
     const output = document.querySelector(".display");
     output.innerHTML = "0";
+    fstArg = "";
+    sndArg = "";
+    notArgs = true;
+    argsReady = false;
+    isOperatorPressed = false;
+    isEqualPressed = false;
 }
 
 const display = document.querySelector(".display");
 
 let fstArg = "";
 let sndArg = "";
+let notArgs = true;
+let argsReady = false;
 let isOperatorPressed = false;
+let isEqualPressed = false;
 let actualOperator;
 
 const operatorsContainer = document.querySelectorAll(".operator");
@@ -61,20 +70,60 @@ const equalContainer = document.querySelector(".equal");
 
 operatorsContainer.forEach(operator => {
     operator.addEventListener("click", function(){
+        if(notArgs){
+            console.log("sin argumentos");
+            return;
+        }
+        console.log("operator pressed: ", this.textContent );
+        if(argsReady){
+            console.log("argsReady!!!!");
+            let functionOp = obtainOperator(actualOperator);
+            let result = operate(parseInt(fstArg,10), 
+                                functionOp,
+                                parseInt(sndArg,10));
+            if(result != null){
+                display.innerHTML = result;
+            }
+            else{
+                display.innerHTML = "ERROR";
+            }
+            fstArg = result.toString();
+            sndArg = "";
+            console.log("fstArgs: " + fstArg );
+            console.log("sndArgs: " + sndArg);
+            argsReady = false;
+        }
+        else{
+            console.log("Faltan args!!");
+            actualOperator = this.textContent;
+        }
         isOperatorPressed = true;
-        actualOperator = this.textContent;
+        isEqualPressed = false;
+        
     })
 })
 
 numbersContainer.forEach(number =>{
     number.addEventListener("click", function(counter){
         const clickedNumber = this.textContent;
+        
+        if(isEqualPressed){
+            console.log("borrandotodo");
+            fstArg = "";
+            isEqualPressed = false;
+            argsReady = false;
+            notArgs = true;
+            isOperatorPressed = false;
+        }
         if(isOperatorPressed){
+            notArgs = false;
             sndArg = sndArg + clickedNumber;
             display.innerHTML = sndArg;
             console.log(sndArg);
+            argsReady = true;
         }
         else {
+            notArgs = false;
             fstArg = fstArg + clickedNumber
             display.innerHTML = fstArg;
             console.log(fstArg);
@@ -91,19 +140,27 @@ clearContainer.addEventListener("click", function(){
 })
 
 equalContainer.addEventListener("click", function(){
-    let functionOp = obtainOperator(actualOperator);
-    let result = operate(parseInt(fstArg,10), 
-                         functionOp,
-                         parseInt(sndArg,10))
-    if(result != null){
-        display.innerHTML = result;
+    if(!argsReady){
+        return;
     }
     else{
-        display.innerHTML = "ERROR";
+        let functionOp = obtainOperator(actualOperator);
+        let result = operate(parseInt(fstArg,10), 
+                            functionOp,
+                            parseInt(sndArg,10));
+        if(result != null){
+            display.innerHTML = result;
+            fstArg = result.toString();
+        }
+        else{
+            display.innerHTML = "ERROR";
+        }
     }
-    fstArg = "";
+    
     sndArg = "";
-    isOperatorPressed = false;
+    isOperatorPressed = true;
+    isEqualPressed = true;
+    argsReady = false;
 })
 
 
